@@ -30,7 +30,7 @@ function Game({ initialTime = 600, initialMode = "ai" }) {
   const [gameMode, setGameMode] = useState(initialMode); 
   const [isAiThinking, setIsAiThinking] = useState(false);
   const [timeWinner, setTimeWinner] = useState(null);
-  const [aiDepth, setAiDepth] = useState(10);
+  const [aiDepth] = useState(10);
   const [promotionMove, setPromotionMove] = useState(null);
 
   // Références pour jouer les sons sans décalage
@@ -160,7 +160,7 @@ const choosePromotion = (promotion) => {
           setIsAiThinking(false);
         });
     }
-  }, [game, gameMode, isAiThinking, aiDepth]);
+  }, [game, gameMode, isAiThinking, playSound]);
 
   // Génère les paires de coups pour l'affichage tableau de l'historique
   const renderHistoryPairs = () => {
@@ -226,7 +226,7 @@ const choosePromotion = (promotion) => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [game]);
+  }, [game], timeWinner);
 
   const formatTime = (seconds) => {
     const min = Math.floor(seconds / 60);
